@@ -95,13 +95,16 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Coin[] withdraw( double amount ) {
-        if(amount < 0) return null;
+        // withdraw cannot be less than 0
+    		if(amount < 0) return null;
         Collections.sort(money);
         List<Coin> templist = new ArrayList<Coin>();
         List<Coin> temp = new ArrayList<Coin>();
         temp.addAll(money);
+        // temp of amount to check for withdraw
         double remainAmount = amount;
         
+        // Loop for check if it can withdraw or not
         for(int index = this.count()-1 ; index>=0 ; index--) {
         		if(temp.get(index).getValue() <= remainAmount) {
         			if ( temp.size() == 0 && remainAmount >= 0 ) {	
@@ -114,6 +117,7 @@ public class Purse {
         		}
         }
         
+        // remain amount = 0 so it can withdraw
         if(remainAmount == 0) {
         		for(int index = this.count()-1 ; index>=0 ; index--) {
         			if(money.get(index).getValue() <= amount) {
