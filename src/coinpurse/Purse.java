@@ -95,6 +95,21 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Coin[] withdraw( double amount ) {
+ 	   /*
+ 		* See lab sheet for outline of a solution, 
+ 		* or devise your own solution.
+ 		* The idea is to be greedy.
+ 		* Try to withdraw the largest coins possible.
+ 		* Each time you choose a coin as a candidate for
+ 		* withdraw, add it to a temporary list and
+ 		* decrease the amount (remainder) to withdraw.
+ 		* 
+ 		* If you reach a point where amountNeededToWithdraw == 0
+ 		* then you found a solution!
+ 		* Now, use the temporary list to remove coins
+ 		* from the money list, and return the temporary
+ 		* list (as an array).
+ 		*/
         // withdraw cannot be less than 0
     		if(amount < 0) return null;
         Collections.sort(money);
@@ -117,8 +132,16 @@ public class Purse {
         		}
         }
         
+        // Did we get the full amount?
+     	// This code assumes you decrease amount each time you remove a coin.
+        // Your code might use some other variable for the remaining amount to withdraw.
         // remain amount = 0 so it can withdraw
         if(remainAmount == 0) {
+        	// Success.
+    		// Remove the coins you want to withdraw from purse,
+    		// and return them as an array.
+    		// Use list.toArray( array[] ) to copy a list into an array.
+    		// toArray returns a reference to the array itself.
         		for(int index = this.count()-1 ; index>=0 ; index--) {
         			if(money.get(index).getValue() <= amount) {
         				balance -= money.get(index).getValue();
@@ -129,34 +152,6 @@ public class Purse {
         		Coin [] array = new Coin [templist.size()];
             return templist.toArray(array);
         }
-        
-       
-	   /*
-		* See lab sheet for outline of a solution, 
-		* or devise your own solution.
-		* The idea is to be greedy.
-		* Try to withdraw the largest coins possible.
-		* Each time you choose a coin as a candidate for
-		* withdraw, add it to a temporary list and
-		* decrease the amount (remainder) to withdraw.
-		* 
-		* If you reach a point where amountNeededToWithdraw == 0
-		* then you found a solution!
-		* Now, use the temporary list to remove coins
-		* from the money list, and return the temporary
-		* list (as an array).
-		*/
-		
-		// Did we get the full amount?
-		// This code assumes you decrease amount each time you remove a coin.
-    	// Your code might use some other variable for the remaining amount to withdraw.
-		
-
-		// Success.
-		// Remove the coins you want to withdraw from purse,
-		// and return them as an array.
-		// Use list.toArray( array[] ) to copy a list into an array.
-		// toArray returns a reference to the array itself.
 		return null;
 	}
   
