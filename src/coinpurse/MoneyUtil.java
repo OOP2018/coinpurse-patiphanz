@@ -3,6 +3,7 @@ package coinpurse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -12,36 +13,39 @@ import java.util.Collections;
  */
 public class MoneyUtil {
 	
+	/** Comparator use to sort list of valuable (money) */
+	private static Comparator<Valuable> comp = new ValueComparator();
+	
 	/**
 	 * Print the result on the console.
-	 * @param coin is the list of coins to print.
+	 * @param money is the list of moneys to print.
 	 */
-	public static void printCoins (List<Coin> coin) {
-		for(Coin c : coin) {
-			System.out.println(c.toString());
+	public static void printMoneys (List<Valuable> money) {
+		for(Valuable v : money) {
+			System.out.println(v.toString());
 		}
 	}
 	
 	/**
-	 * Sort a list of coins.
-	 * @param coin is the list of coins to sort.
+	 * Sort a list of moneys.
+	 * @param money is the list of moneys to sort.
 	 */
-	public static void sortCoins (List<Coin> coin) {
-		Collections.sort(coin);
+	public static void sortMoneys (List<Valuable> money) {
+		Collections.sort(money,comp);
 	}
 	
 	/**
-	 * Return a List of Coins that contains only the coins
+	 * Return a List of Moneys that contains only the moneys
 	 * that have same currency.
-	 * @param coins is the list of coins to filter.
+	 * @param money is the list of moneys to filter.
 	 * @param currency that use to filtering.
 	 * @return filtered is the list of coins that filtered.
 	 */
-	public static List<Coin> filterByCurrency(List<Coin> coins, String currency) {
-		List<Coin> filtered = new ArrayList<Coin>();
-		for(Coin c : coins) {
-			if(currency == c.getCurrency()) {
-				filtered.add(c);
+	public static List<Valuable> filterByCurrency(List<Valuable> money, String currency) {
+		List<Valuable> filtered = new ArrayList<Valuable>();
+		for(Valuable v : money) {
+			if(currency == v.getCurrency()) {
+				filtered.add(v);
 			}
 		}
 		return filtered;
@@ -52,21 +56,21 @@ public class MoneyUtil {
 	 * @param args is not used.
 	 */
 	public static void main(String[] args) {
-		List<Coin> coins = new ArrayList<Coin>();
-		coins.add(new Coin(10.0, "Baht"));
-		coins.add(new Coin(0.5, "Baht"));
-		coins.add(new Coin(2.0, "Baht"));
-		coins.add(new Coin(1.0, "Baht"));
-		coins.add(new Coin(5.0, "Baht"));
-		coins.add(new Coin(5.0, "Dollar"));
-		coins.add(new Coin(10.0, "Dollar"));
-		coins.add(new Coin(5.0, "Dollar"));
-		coins.add(new Coin(2.0, "Dollar"));
-		coins.add(new Coin(1.0, "Dollar"));
-		printCoins(coins);
-		System.out.println("----------------");
-		sortCoins(coins);
-		printCoins(filterByCurrency(coins,"Dollar"));
-		
+		List<Valuable> moneys = new ArrayList<Valuable>();
+		moneys.add(new BankNote(100,"Baht"));
+		moneys.add(new Coin(1,"Baht"));
+		moneys.add(new Coin(10.0,"Baht"));
+		moneys.add(new BankNote(500,"Baht"));
+		moneys.add(new Coin(0.25,"Baht"));
+		moneys.add(new BankNote(1000,"Dollar"));
+		moneys.add(new Coin(0.25,"Dollar"));
+		moneys.add(new Coin(0.5,"Dollar"));
+		sortMoneys(moneys);
+		printMoneys(moneys);
+		System.out.println("\n==== Dollar ====\n");
+		printMoneys(filterByCurrency(moneys,"Dollar"));
+		System.out.println("\n==== Baht ====\n");
+		printMoneys(filterByCurrency(moneys,"Baht"));
+
 	}
 }

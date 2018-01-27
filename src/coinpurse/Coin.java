@@ -5,7 +5,7 @@ package coinpurse;
  * @author Patiphan Srisook
  *
  */
-public class Coin implements Comparable<Coin> {
+public class Coin implements Valuable {
 
 	/** Value of money */
 	private double value;
@@ -70,7 +70,6 @@ public class Coin implements Comparable<Coin> {
 	 * 			1 if first has order after second coin.
 	 * 			0 if first coin and second coin have same order.
 	 */
-	@Override
 	public int compareTo(Coin coin) {
 		if(this.getValue() == coin.getValue()) return 0;
 		else if(this.getValue() < coin.getValue()) return -1;
