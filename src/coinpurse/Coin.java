@@ -59,6 +59,11 @@ public class Coin implements Valuable {
 		// self check
 		if(this == arg) 
 			return true;
+		// build other object to compare
+		Coin other = (Coin) arg;
+		// check both value and currency
+		if(this.getValue() == other.getValue() && this.getCurrency() == other.getCurrency())
+			return true;
 		return false;
  	}
 
@@ -84,6 +89,4 @@ public class Coin implements Valuable {
 	public String toString() {
 		return String.format("%.2f-%s", this.getValue(),this.getCurrency());
 	}
-	
-	
 }

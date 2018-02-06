@@ -74,6 +74,11 @@ public class BankNote implements Valuable{
 		// self check
 		if(this == arg) 
 			return true;
+		// build other object to compare
+		BankNote other = (BankNote) arg;
+		// check both value and currency
+		if(this.getValue() == other.getValue() && this.getCurrency() == other.getCurrency())
+			return true;
 		return false;
  	}
 	
