@@ -60,9 +60,9 @@ public class Coin implements Valuable {
 		if(this == arg) 
 			return true;
 		// build other object to compare
-		Coin other = (Coin) arg;
+		Valuable other = (Valuable) arg;
 		// check both value and currency
-		if(this.getValue() == other.getValue() && this.getCurrency() == other.getCurrency())
+		if(this.getValue() == other.getValue() && this.getCurrency().equals(other.getCurrency()))
 			return true;
 		return false;
  	}

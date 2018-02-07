@@ -16,15 +16,13 @@ public class ValueComparator implements Comparator<Valuable> {
 	 */
 	@Override
 	public int compare(Valuable o1, Valuable o2) {
-		if(o1.getCurrency() == "Baht" && o2.getCurrency() == "Dollar") return -1;
-		else if(o1.getCurrency() == "Dollar" && o2.getCurrency() == "Bath") return 1;
-		
-		if(o1.getCurrency() == o2.getCurrency()) {
+		if(o1.getCurrency().compareToIgnoreCase(o2.getCurrency()) == 0) {
 			if(o1.getValue() > o2.getValue()) return 1;
 			else if(o1.getValue() == o2.getValue()) return 0;
 			else /* if(o1.getValue() < o2.getValue()) */ return -1;
 		}
-		return 0;
+		
+		return o1.getCurrency().compareToIgnoreCase(o2.getCurrency());
 	}
 
 }

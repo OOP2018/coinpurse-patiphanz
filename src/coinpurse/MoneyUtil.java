@@ -65,12 +65,18 @@ public class MoneyUtil {
 		moneys.add(new BankNote(1000,"Dollar"));
 		moneys.add(new Coin(0.25,"Dollar"));
 		moneys.add(new Coin(0.5,"Dollar"));
+		moneys.add(new BankNote(100,"Baht"));
+		moneys.add(new BankNote(20,"Dollar"));
+		moneys.add(new BankNote(100,"Baht"));
+		moneys.add(new Coin(5,"Dollar"));
+		moneys.add(new BankNote(5000,"Dong"));
 		sortMoneys(moneys);
 		printMoneys(moneys);
 		System.out.println("\n==== Dollar ====\n");
 		printMoneys(filterByCurrency(moneys,"Dollar"));
 		System.out.println("\n==== Baht ====\n");
 		printMoneys(filterByCurrency(moneys,"Baht"));
-
+		System.out.println("\n==== Dong ====\n");
+		printMoneys(filterByCurrency(moneys,"Dong"));
 	}
 }
