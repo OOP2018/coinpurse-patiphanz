@@ -56,9 +56,6 @@ public class Coin implements Valuable {
 		// type check and cast
 		if(getClass() != arg.getClass())
 			return false;		
-		// self check
-		if(this == arg) 
-			return true;
 		// build other object to compare
 		Coin other = (Coin) arg;
 		// check both value and currency

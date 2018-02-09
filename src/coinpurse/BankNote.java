@@ -71,9 +71,6 @@ public class BankNote implements Valuable{
 		// type check and cast
 		if(getClass() != arg.getClass())
 			return false;		
-		// self check
-		if(this == arg) 
-			return true;
 		// build other object to compare
 		BankNote other = (BankNote) arg;
 		// check both value and currency
