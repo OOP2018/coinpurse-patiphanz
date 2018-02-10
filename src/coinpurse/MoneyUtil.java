@@ -1,8 +1,5 @@
 package coinpurse;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -52,19 +49,6 @@ public class MoneyUtil {
 			}
 		}
 		return filtered;
-	}
-	
-	//TODO Remove this
-	private static Coin makeCoin(double value) {
-		return new Coin(value,"BTC");
-	}
-	private static double sum(Valuable[] values)  {
-//		if (values == null) return 0.0;
-//		double sum = 0;
-//		for(Valuable v: values) if (v != null) sum += v.getValue();
-//		return sum;
-		for(Valuable v: values) System.out.println(v.getValue());
-		return 0;
 	}
 	
 	/**

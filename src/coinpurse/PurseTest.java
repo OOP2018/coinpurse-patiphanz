@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -149,7 +148,7 @@ public class PurseTest {
 		Valuable [] wd1 = purse.withdraw(amount1);
 		assertEquals(amount1, sum(wd1), TOL );
 		assertEquals(amount2, purse.getBalance(), TOL );
-		Valuable [] wd2 = purse.withdraw(amount2);
+		purse.withdraw(amount2);
 		
 		// should be empty now
 		assertEquals(0, purse.getBalance(), TOL );
