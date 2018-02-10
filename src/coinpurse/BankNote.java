@@ -5,14 +5,10 @@ package coinpurse;
  * @author Patiphan Srisook
  *
  */
-public class BankNote implements Valuable{
+public class BankNote extends Money {
 	
 	/** Make serial number start at 1000000 */
 	private static long nextSerialNumber = 1000000;
-	/** Value of BankNote */
-	private double value;
-	/** Currency of BankNote */
-	private String currency;
 	/** Serial number of BankNote */
 	private long serialNumber;
 	
@@ -24,30 +20,10 @@ public class BankNote implements Valuable{
 	 * @param currency can be any currency.
 	 */
 	public BankNote(double value,String currency) {
-		if(value<0) this.value = 0;
-		this.value = value;
-		this.currency = currency;
+		super(value,currency);
 		this.serialNumber = nextSerialNumber++;
 	}
 
-	/**
-	 * Get the value of this BankNote.
-	 * @return the value of this BankNote.
-	 */
-	@Override
-	public double getValue() {
-		return this.value;
-	}
-
-	/**
-	 * Get the currency of this BankNote.
-	 * @return the currency of this BankNote.
-	 */
-	@Override
-	public String getCurrency() {
-		return this.currency;
-	}
-	
 	/**
 	 * Get the serial number of this BankNote.
 	 * @return serialNumber of this BankNote.
@@ -55,29 +31,6 @@ public class BankNote implements Valuable{
 	public long getSerial() {
 		return this.serialNumber;
 	}
-	
-	/**
-	 * Two BankNotes are equal if the have the same value
-	 * and same currency.
-	 * @param arg is the object to check equal.
-	 * @return true if both value and currency are the same,
-	 * Otherwise false.
-	 */
-	@Override
-	public boolean equals(Object arg) {
-		// null check
-		if(arg == null) 
-			return false;
-		// type check and cast
-		if(getClass() != arg.getClass())
-			return false;		
-		// build other object to compare
-		BankNote other = (BankNote) arg;
-		// check both value and currency
-		if(this.getValue() == other.getValue() && this.getCurrency().equals(other.getCurrency()))
-			return true;
-		return false;
- 	}
 	
 	/**
 	 * Get describe of this BankNote.

@@ -1,5 +1,8 @@
 package coinpurse;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -56,27 +59,25 @@ public class MoneyUtil {
 	 * @param args is not used.
 	 */
 	public static void main(String[] args) {
-		List<Valuable> moneys = new ArrayList<Valuable>();
-		moneys.add(new BankNote(100,"Baht"));
-		moneys.add(new Coin(1,"Baht"));
-		moneys.add(new Coin(10.0,"Baht"));
-		moneys.add(new BankNote(500,"Baht"));
-		moneys.add(new Coin(0.25,"Baht"));
-		moneys.add(new BankNote(1000,"Dollar"));
-		moneys.add(new Coin(0.25,"Dollar"));
-		moneys.add(new Coin(0.5,"Dollar"));
-		moneys.add(new BankNote(100,"Baht"));
-		moneys.add(new BankNote(20,"Dollar"));
-		moneys.add(new BankNote(100,"Baht"));
-		moneys.add(new Coin(5,"Dollar"));
-		moneys.add(new BankNote(5000,"Dong"));
-		sortMoneys(moneys);
-		printMoneys(moneys);
-		System.out.println("\n==== Dollar ====\n");
-		printMoneys(filterByCurrency(moneys,"Dollar"));
-		System.out.println("\n==== Baht ====\n");
-		printMoneys(filterByCurrency(moneys,"Baht"));
-		System.out.println("\n==== Dong ====\n");
-		printMoneys(filterByCurrency(moneys,"Dong"));
+		Purse a = new Purse(10);
+		a.insert(new Coin(5,"Baht"));
+		a.insert(new Coin(10,"Baht"));
+		a.insert(new BankNote(20,"Baht"));
+		a.insert(new BankNote(50,"Baht"));
+		a.insert(new Coin(5,"USD"));
+		a.insert(new Coin(10,"USD"));
+		a.insert(new BankNote(20,"USD"));
+		a.insert(new BankNote(50,"USD"));
+		printMoneys(a.money);
+		System.out.println("==========");
+		Valuable b = new Money(20,"USD");
+		a.withdraw(b);
+		printMoneys(a.money);
+		System.out.println("==========");
+		Valuable c = new Money(10,"Baht");
+		a.withdraw(c);
+		printMoneys(a.money);
+		
+		
 	}
 }

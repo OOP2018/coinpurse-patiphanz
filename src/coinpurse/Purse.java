@@ -90,16 +90,16 @@ public class Purse {
         return true;
     }
     
-    /**  
-     *  Withdraw the requested amount of money.
-     *  Return an array of Moneys withdrawn from purse,
-     *  or return null if cannot withdraw the amount requested.
-     *  @param amount is the amount to withdraw
-     *  @return array of Money objects for money withdrawn, 
-	 *    or null if cannot withdraw requested amount.
+    /**
+     * Withdraw the amount, using only items that have the
+     * same currency as the parameter (amount). amount
+     * must not be null and amount.getValue() > 0.
+     * @param amount is the amount to withdraw
+     * @return array of Money objects for money withdrawn, 
+	 * or null if cannot withdraw requested amount.
      */
-    public Valuable[] withdraw( double amount ) {
- 	   /*
+    public Valuable[] withdraw(Valuable amount) {
+    	/*
  		* See lab sheet for outline of a solution, 
  		* or devise your own solution.
  		* The idea is to be greedy.
@@ -114,24 +114,26 @@ public class Purse {
  		* from the money list, and return the temporary
  		* list (as an array).
  		*/
+    		double amounts = amount.getValue();
         // withdraw cannot be less than 0
-    		if(amount < 0) return null;
+    		if(amounts < 0) return null;
         Collections.sort(money,comp);
         List<Valuable> templist = new ArrayList<Valuable>();
         List<Valuable> temp = new ArrayList<Valuable>();
         temp.addAll(money);
         // temp of amount to check for withdraw
-        double remainAmount = amount;
+        double remainAmount = amounts;
         
         // Loop for check if it can withdraw or not
         for(int index = this.count()-1 ; index>=0 ; index--) {
-        		if(temp.get(index).getValue() <= remainAmount) {
+        		Valuable t = temp.get(index);
+        		if(t.getValue() <= remainAmount && t.getCurrency().equals(amount.getCurrency())) {
         			if ( temp.size() == 0 && remainAmount >= 0 ) {	
             			// failed. Don't change the contents of the purse.
             			return null;
             		}	
-            		templist.add(temp.get(index));
-            		remainAmount -= temp.get(index).getValue();
+            		templist.add(t);
+            		remainAmount -= t.getValue();
             		temp.remove(index);
         		}
         }
@@ -147,16 +149,28 @@ public class Purse {
     		// Use list.toArray( array[] ) to copy a list into an array.
     		// toArray returns a reference to the array itself.
         		for(int index = this.count()-1 ; index>=0 ; index--) {
-        			if(money.get(index).getValue() <= amount) {
-        				balance -= money.get(index).getValue();
-            			amount -= money.get(index).getValue();
+        			Valuable m = money.get(index);
+        			if(m.getValue() <= amounts && m.getCurrency().equals(amount.getCurrency())) {
+        				balance -= m.getValue();
+            			amounts -= m.getValue();
         				money.remove(index);
         			}
         		}
         		Valuable [] array = new Valuable [templist.size()];
             return templist.toArray(array);
         }
-		return null;
+        else { return null; }
+    }
+    
+    /**  
+     *  Withdraw amount using the default currency, which is "Baht".
+     *  @param amount is the amount to withdraw
+     *  @return array of Money objects for money withdrawn, 
+	 *    or null if cannot withdraw requested amount.
+     */
+    public Valuable[] withdraw( double amount ) {
+ 	   Money quantity = new Money(amount,"Baht");
+ 	   return withdraw(quantity);
 	}
   
     /** 
