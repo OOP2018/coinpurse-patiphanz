@@ -23,7 +23,7 @@ import org.junit.Test;
 public class PurseTest {
 	/** tolerance for comparing two double values */
 	private static final double TOL = 1.0E-6;
-	private static final String CURRENCY = "BTC";
+	private static final String CURRENCY = "Baht";
 	
     /**
      * Sets up the test fixture.
@@ -35,7 +35,7 @@ public class PurseTest {
     }
     
     /** Make a coin with the default currency. To save typing "new Coin(...)" */
-    private Valuable makeCoin(double value) {
+    private Coin makeCoin(double value) {
 		return new Coin(value,CURRENCY);
 	}
 

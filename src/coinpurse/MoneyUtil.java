@@ -54,6 +54,19 @@ public class MoneyUtil {
 		return filtered;
 	}
 	
+	//TODO Remove this
+	private static Coin makeCoin(double value) {
+		return new Coin(value,"BTC");
+	}
+	private static double sum(Valuable[] values)  {
+//		if (values == null) return 0.0;
+//		double sum = 0;
+//		for(Valuable v: values) if (v != null) sum += v.getValue();
+//		return sum;
+		for(Valuable v: values) System.out.println(v.getValue());
+		return 0;
+	}
+	
 	/**
 	 * Use to test anything.
 	 * @param args is not used.
@@ -77,7 +90,6 @@ public class MoneyUtil {
 		Valuable c = new Money(10,"Baht");
 		a.withdraw(c);
 		printMoneys(a.money);
-		
 		
 	}
 }
