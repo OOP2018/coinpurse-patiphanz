@@ -69,9 +69,7 @@ public class Money implements Valuable{
 		// build other object to compare
 		Valuable other = (Valuable) arg;
 		// check both value and currency
-		if(this.getValue() == other.getValue() && this.getCurrency().equals(other.getCurrency()))
-			return true;
-		return false;
+		return (this.getValue() == other.getValue() && this.getCurrency().equals(other.getCurrency()));
 	}
 
 }

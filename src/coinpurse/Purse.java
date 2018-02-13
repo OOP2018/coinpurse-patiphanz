@@ -29,9 +29,10 @@ public class Purse {
      */
     private double balance;
     
+    private static final String DEFAULT_CURRENCY = "Baht";
     /** 
      *  Create a purse with a specified capacity.
-     *  @param capacity is maximum number of coins you can put in purse.
+     *  @param capacity is maximum number of moneys you can put in purse.
      */
     public Purse( int capacity ) {
     		this.money = new ArrayList<Valuable>();
@@ -103,14 +104,14 @@ public class Purse {
  		* See lab sheet for outline of a solution, 
  		* or devise your own solution.
  		* The idea is to be greedy.
- 		* Try to withdraw the largest coins possible.
- 		* Each time you choose a coin as a candidate for
+ 		* Try to withdraw the largest moneys possible.
+ 		* Each time you choose a item as a candidate for
  		* withdraw, add it to a temporary list and
  		* decrease the amount (remainder) to withdraw.
  		* 
  		* If you reach a point where amountNeededToWithdraw == 0
  		* then you found a solution!
- 		* Now, use the temporary list to remove coins
+ 		* Now, use the temporary list to remove moneys
  		* from the money list, and return the temporary
  		* list (as an array).
  		*/
@@ -169,7 +170,7 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Valuable[] withdraw( double amount ) {
- 	   Valuable quantity = new Money(amount,"Baht");
+ 	   Valuable quantity = new Money(amount,DEFAULT_CURRENCY);
  	   return withdraw(quantity);
 	}
   

@@ -39,7 +39,7 @@ public class MoneyUtil {
 	 * that have same currency.
 	 * @param money is the list of moneys to filter.
 	 * @param currency that use to filtering.
-	 * @return filtered is the list of coins that filtered.
+	 * @return filtered is the list of moneys that filtered.
 	 */
 	public static List<Valuable> filterByCurrency(List<Valuable> money, String currency) {
 		List<Valuable> filtered = new ArrayList<Valuable>();
