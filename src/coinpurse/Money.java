@@ -65,7 +65,10 @@ public class Money implements Valuable{
 	public boolean equals(Object arg) {
 		// null check
 		if(arg == null) 
-			return false;		
+			return false;	
+		if(this.getClass() != arg.getClass()) {
+			return false;
+		}
 		// build other object to compare
 		Valuable other = (Valuable) arg;
 		// check both value and currency
