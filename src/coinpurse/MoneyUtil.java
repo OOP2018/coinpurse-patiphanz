@@ -56,23 +56,17 @@ public class MoneyUtil {
 	 * @param args is not used.
 	 */
 	public static void main(String[] args) {
+		Main.init();
 		Purse a = new Purse(10);
-		a.insert(new Coin(5,"Baht"));
-		a.insert(new Coin(10,"Baht"));
-		a.insert(new BankNote(20,"Baht"));
-		a.insert(new BankNote(50,"Baht"));
-		a.insert(new Coin(5,"USD"));
-		a.insert(new Coin(10,"USD"));
-		a.insert(new BankNote(20,"USD"));
-		a.insert(new BankNote(50,"USD"));
+		MoneyFactory mf = MoneyFactory.getInstance();
+		a.insert(mf.createMoney(5));
+		a.insert(mf.createMoney(10));
+		a.insert(mf.createMoney(20));
+		a.insert(mf.createMoney(50));
 		printMoneys(a.money);
 		System.out.println("==========");
-		Valuable b = new Money(20,"USD");
+		Valuable b = new Money(10,"Baht");
 		a.withdraw(b);
-		printMoneys(a.money);
-		System.out.println("==========");
-		Valuable c = new Money(10,"Baht");
-		a.withdraw(c);
 		printMoneys(a.money);
 		
 	}

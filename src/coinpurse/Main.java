@@ -1,5 +1,7 @@
 package coinpurse;
- 
+
+import java.util.ResourceBundle;
+
 /**
  * A main class to create objects and connect objects together.
  * The user interface needs a reference to money purse.
@@ -12,25 +14,38 @@ public class Main {
      * @param args not used
      */
     public static void main( String[] args ) {
-//        // 1. create a Purse
-//    	Purse purse = new Purse(10);
-//        // 2. create a ConsoleDialog with a reference to the Purse object
-//    	ConsoleDialog ui = new ConsoleDialog(purse);
-//        // 3. run the ConsoleDialog
-//    	ui.run();
-
-    		MoneyFactory money = MoneyFactory.getInstance();
-    		try {
-				money.setFactory((MoneyFactory) Class.forName("ThaiMoneyFactory.java").newInstance());
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    	Main.init();
+        // create a Purse
+    	Purse purse = new Purse(10);
+        // create a ConsoleDialog with a reference to the Purse object
+    	ConsoleDialog ui = new ConsoleDialog(purse);
+        // run the ConsoleDialog
+    	ui.run();
+    }
+    
+    public static void init() {
+    	// create a ResourceBundle from file "purse.properties" on the classpath
+    			// the ".properties" extension is automatically appended to the name
+    			ResourceBundle bundle = ResourceBundle.getBundle( "purse" );
+    			
+    			// get value of "moneyfactory" property
+    			String factoryclass = bundle.getString( "moneyfactory" );
+    			MoneyFactory factory = null;
+    			// if factoryclass is null then use a default class name
+    			if(factoryclass.equals(null)) { factoryclass = "coinpurse.ThaiMoneyFactory"; }
+    			try {
+    				factory = (MoneyFactory)Class.forName(factoryclass).newInstance();
+    			}
+    			catch (ClassCastException cce) {
+    				//the object could not be cast to type MoneyFactory
+    				System.out.println(factoryclass+" is not type MoneyFactory");
+    			}
+    			catch (Exception ex) {
+    				// any other exception means we could not create an object
+    				System.out.println("Error creating MoneyFactory "+ex.getMessage() );
+    			}
+    			// if no factory then quit
+    			if (factory == null) System.exit(1);
+    			MoneyFactory.setFactory(factory);
     }
 }

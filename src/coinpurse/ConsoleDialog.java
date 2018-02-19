@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class ConsoleDialog {
 	// default currency for this dialog
-	public static final String CURRENCY = "Baht";
+	public static final String CURRENCY = "Ringgit";
     // use a single java.util.Scanner object for reading all input
     private static Scanner console = new Scanner( System.in );
     // Long prompt shown the first time
@@ -125,10 +125,8 @@ public class ConsoleDialog {
     
     /** Make a Coin (or BankNote or whatever) using requested value. */
     private Valuable makeMoney(double value) {
-    		if(value >=20)
-    			return new BankNote(value, CURRENCY);
-    		else
-    			return new Coin(value,CURRENCY);
+    		MoneyFactory moneyFactory = MoneyFactory.getInstance();
+    		return moneyFactory.createMoney(value);
     }
 
 }

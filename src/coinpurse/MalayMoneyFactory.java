@@ -13,8 +13,10 @@ public class MalayMoneyFactory extends MoneyFactory {
 			return new Coin(value,MALAY_CURRENCY);
 		else if(value == 1 || value == 2 || value == 5 || value == 10 || value == 20 || value == 50 || value == 100)
 			return new BankNote(value,MALAY_CURRENCY,nextSerialNumber++);
-		else
-			return null;
+		else {
+			System.out.printf("%.0f is not a valid currency value\n",value);
+			throw new IllegalArgumentException();
+		}
 	}
 
 }
