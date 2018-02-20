@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class ConsoleDialog {
 	// default currency for this dialog
-	public static final String CURRENCY = "Ringgit";
+	public static String CURRENCY = "Baht";
     // use a single java.util.Scanner object for reading all input
     private static Scanner console = new Scanner( System.in );
     // Long prompt shown the first time
@@ -27,7 +27,18 @@ public class ConsoleDialog {
      * @param purse is the Purse to interact with.
      */
     public ConsoleDialog(Purse purse ) {
-    	this.purse = purse;
+    		this.purse = purse;
+    }
+    
+    /**
+     * Set currency depend on money factory.
+     * @param currency
+     */
+    public static void setCurrency(String currency) {
+    		if(currency.toLowerCase().contains("thai"))
+    			CURRENCY = "Baht";
+    		else if(currency.toLowerCase().contains("malay"))
+    			CURRENCY = "Ringgit";
     }
     
     /** Run the user interface. */

@@ -36,13 +36,6 @@ public class MoneyFactoryTest {
      */
     @Before
     public void setUp() {
-    	// nothing to initialize
-    }
-
-    /** Easy test that the Purse constructor is working. */
-    @Test
-    public void testSetFactory()
-    {
     		String factoryclass = "coinpurse.ThaiMoneyFactory";
 		try {
 			factory = (MoneyFactory)Class.forName(factoryclass).newInstance();
@@ -59,6 +52,7 @@ public class MoneyFactoryTest {
 		if (factory == null) System.exit(1);
 		assertTrue(factoryclass.equals("coinpurse.ThaiMoneyFactory"));
 		MoneyFactory.setFactory(factory);
+		factory = MoneyFactory.getInstance();
     }
     
     @Test
@@ -75,8 +69,8 @@ public class MoneyFactoryTest {
     {
         Purse purse = new Purse(3);
         assertTrue( purse.insert(factory.createMoney(5)));
-        assertTrue( purse.insert(factory.createMoney(10)));
         assertTrue( purse.insert(factory.createMoney(1)));
+        assertTrue( purse.insert(factory.createMoney(10)));
         assertEquals( 3, purse.count() );
         // purse is full so insert should fail
         assertFalse( purse.insert(factory.createMoney(20)) );
@@ -93,10 +87,12 @@ public class MoneyFactoryTest {
         // real test
         int capacity = 4;
         purse = new Purse(capacity);
-        for(int k=1; k<=capacity; k++) {
+        for(int k=1; k<=capacity-2; k++) {
             assertFalse(purse.isFull());
             purse.insert( factory.createMoney(k) );
         }
+        purse.insert(factory.createMoney(5));
+        purse.insert(factory.createMoney(10));
         // should be full now
         assertTrue( purse.isFull() );
         assertFalse( purse.insert( factory.createMoney(5) ) );

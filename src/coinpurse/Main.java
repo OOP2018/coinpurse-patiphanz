@@ -23,6 +23,9 @@ public class Main {
     	ui.run();
     }
     
+    /**
+     * Initialize money factory for coin purse
+     */
     public static void init() {
     	// create a ResourceBundle from file "purse.properties" on the classpath
     			// the ".properties" extension is automatically appended to the name
@@ -47,5 +50,6 @@ public class Main {
     			// if no factory then quit
     			if (factory == null) System.exit(1);
     			MoneyFactory.setFactory(factory);
+    			ConsoleDialog.setCurrency(factoryclass);
     }
 }

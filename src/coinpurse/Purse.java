@@ -13,6 +13,7 @@ import java.util.Comparator;
  *  @author Patiphan Srisook
  */
 public class Purse {
+	
     /** Collection of objects in the purse. */
 	public List<Valuable> money;
 	
@@ -29,7 +30,7 @@ public class Purse {
      */
     private double balance;
     
-    private static final String DEFAULT_CURRENCY = "Baht";
+    private static String CURRENCY = "Baht";
     /** 
      *  Create a purse with a specified capacity.
      *  @param capacity is maximum number of moneys you can put in purse.
@@ -39,9 +40,9 @@ public class Purse {
     		this.comp = new ValueComparator();
     		this.capacity = capacity;
     		this.balance = 0;
-    		
+    		CURRENCY = ConsoleDialog.CURRENCY;
     }
-
+    
     /**
      * Count and return the number of moneys in the purse.
      * This is the number of moneys, not their value.
@@ -170,8 +171,8 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Valuable[] withdraw( double amount ) {
- 	   Valuable quantity = new Money(amount,DEFAULT_CURRENCY);
- 	   return withdraw(quantity);
+ 	   	Valuable quantity = new Money(amount,CURRENCY);
+ 	   	return withdraw(quantity);
 	}
   
     /** 
@@ -179,7 +180,7 @@ public class Purse {
      * It can return whatever is a useful description.
      */
     public String toString() {
-    		return String.format("%d moneys with value %.2f", this.count(),this.getBalance());
+    		return String.format("%d items with value %.2f", this.count(),this.getBalance());
     }
 }
 
