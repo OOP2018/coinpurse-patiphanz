@@ -1,12 +1,24 @@
 package coinpurse;
 
+/**
+ * Malaysia money factory can create money with Malaysia default currency.
+ * @author Patiphan Srisook
+ *
+ */
 public class MalayMoneyFactory extends MoneyFactory {
 
+	// default currency for Malaysia
 	public static final String MALAY_CURRENCY = "Ringgit";
 	
 	/** Make serial number start at 1000000 */
 	private static long nextSerialNumber = 1000000;
 	
+	/**
+	 * Create new money objects in the local currency.
+	 * @param value is amount of money
+	 * @return money object for created money
+	 * @throws IllegalArgumentException.
+	 */
 	@Override
 	public Valuable createMoney(double value) {
 		if(value == 0.05 || value == 0.1 || value == 0.2 || value == 0.5)

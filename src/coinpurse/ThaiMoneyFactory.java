@@ -1,22 +1,24 @@
 package coinpurse;
 
 /**
- * This class is use for create Thai money with give value.
+ * Thai money factory can create money with Thai default currency.
  * 
  * @author Patiphan Srisook
  *
  */
 public class ThaiMoneyFactory extends MoneyFactory {
 
+	// default currency for Thai
 	public static final String THAI_CURRENCY = "Baht";
 	
 	/** Make serial number start at 1000000 */
 	private static long nextSerialNumber = 1000000;
 	
 	/**
-	 * Create new money object in Thai currency.
-	 * @param value
-	 * @throws IllegalArgumentException
+	 * Create new money objects in the local currency.
+	 * @param value is amount of money
+	 * @return money object for created money
+	 * @throws IllegalArgumentException.
 	 */
 	@Override
 	public Valuable createMoney(double value) {

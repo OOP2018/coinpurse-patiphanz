@@ -30,7 +30,9 @@ public class Purse {
      */
     private double balance;
     
+    // default currency for this purse
     private static String CURRENCY = "Baht";
+    
     /** 
      *  Create a purse with a specified capacity.
      *  @param capacity is maximum number of moneys you can put in purse.

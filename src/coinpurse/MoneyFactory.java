@@ -2,6 +2,11 @@ package coinpurse;
 
 import java.util.ResourceBundle;
 
+/**
+ * Money factory can create any kind of money.
+ * @author Patiphan Srisook
+ *
+ */
 public abstract class MoneyFactory {
 	
 	/** singleton instance of MoneyFactory */
@@ -18,8 +23,8 @@ public abstract class MoneyFactory {
 	
 	/**
 	 * Create new money objects in the local currency.
-	 * @param value
-	 * @return
+	 * @param value is amount of money
+	 * @return money object for created money
 	 * @throws IllegalArgumentException.
 	 */
 	public abstract Valuable createMoney(double value);
