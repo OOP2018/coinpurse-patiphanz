@@ -1,7 +1,5 @@
 package coinpurse;
 
-import java.util.ResourceBundle;
-
 /**
  * Money factory can create any kind of money.
  * @author Patiphan Srisook
@@ -10,7 +8,7 @@ import java.util.ResourceBundle;
 public abstract class MoneyFactory {
 	
 	/** singleton instance of MoneyFactory */
-	private static MoneyFactory factory = null;
+	private static MoneyFactory factory = new ThaiMoneyFactory();
 	
 	/**
 	 * Get an instance of MoneyFactory.
@@ -29,14 +27,20 @@ public abstract class MoneyFactory {
 	 */
 	public abstract Valuable createMoney(double value);
 	
+	/**
+	 * Accept money value as String. If value is invalid number
+	 * throw IllegalArgumentException.
+	 * @param value is value of money in String type.
+	 * @return valuable object.
+	 */
 	public Valuable createMoney (String value) {
 		// parse the String as a double and call the other createMoney method
 		double doubleValue = 0;
 		// if String value isn't a number then throw IllegalArgumentException
 		try {
 			doubleValue = Double.parseDouble(value);
-		} catch (IllegalArgumentException e) {
-			System.out.println("Value is not a number");
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("This value is not a number.",e);
 		}
 		return createMoney(doubleValue);
 	}
@@ -44,7 +48,7 @@ public abstract class MoneyFactory {
 	/**
 	 * Static method to a "set" the MoneyFactory object that is used.
 	 * This is mostly for testing of MoneyFactory.
-	 * @param f
+	 * @param mf
 	 */
 	public static void setFactory(MoneyFactory mf) {
 		factory = mf;

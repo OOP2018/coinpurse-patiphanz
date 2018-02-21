@@ -9,7 +9,7 @@ package coinpurse;
 public class MoneyFactoryDemo {
 
 	public static void main(String[] args) {
-		Main.init();
+//		Main.init();
 		
 		MoneyFactory mf = MoneyFactory.getInstance();
 		MoneyFactory mf2 = MoneyFactory.getInstance();

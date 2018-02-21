@@ -26,8 +26,7 @@ public class MalayMoneyFactory extends MoneyFactory {
 		else if(value == 1 || value == 2 || value == 5 || value == 10 || value == 20 || value == 50 || value == 100)
 			return new BankNote(value,MALAY_CURRENCY,nextSerialNumber++);
 		else {
-			System.out.printf("%.0f is not a valid currency value\n",value);
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("This value is not a valid currency value.");
 		}
 	}
 
