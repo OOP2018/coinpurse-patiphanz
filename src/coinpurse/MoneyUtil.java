@@ -63,11 +63,11 @@ public class MoneyUtil {
 		a.insert(mf.createMoney(10));
 		a.insert(mf.createMoney(20));
 		a.insert(mf.createMoney(50));
-		printMoneys(a.money);
+//		printMoneys(a.money);
 		System.out.println("==========");
 		Valuable b = new Money(10,"Baht");
 		a.withdraw(b);
-		printMoneys(a.money);
+//		printMoneys(a.money);
 		
 	}
 }

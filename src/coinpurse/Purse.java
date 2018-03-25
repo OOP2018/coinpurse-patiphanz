@@ -1,8 +1,12 @@
 package coinpurse;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
+
+import coinpurse.strategy.GreedyWithdraw;
+import coinpurse.strategy.WithdrawStrategy;
+
 import java.util.Comparator;
 
 /**
@@ -14,8 +18,10 @@ import java.util.Comparator;
  */
 public class Purse {
 	
+	private WithdrawStrategy strategy;
+	
     /** Collection of objects in the purse. */
-	public List<Valuable> money;
+	private List<Valuable> money;
 	
 	/** Comparator use to sort list of valuable (money) */
 	private Comparator<Valuable> comp;
@@ -28,7 +34,7 @@ public class Purse {
     /**
      * Balance is the total amount money in money purse.
      */
-    private double balance;
+    
     
     // default currency for this purse
     private static String CURRENCY = "Baht";
@@ -41,8 +47,8 @@ public class Purse {
     		this.money = new ArrayList<Valuable>();
     		this.comp = new ValueComparator();
     		this.capacity = capacity;
-    		this.balance = 0;
     		CURRENCY = ConsoleDialog.CURRENCY;
+    		strategy = new GreedyWithdraw();
     }
     
     /**
@@ -57,7 +63,11 @@ public class Purse {
      *  @return the total value of items in the purse.
      */
     public double getBalance() {
-		return balance; 
+		double balance = 0.0;
+		for (Valuable valuable : money) {
+			balance += valuable.getValue();
+		}
+		return balance;
 	}
 
     
@@ -90,9 +100,12 @@ public class Purse {
         // if the purse is already full then can't insert anything.
         if(isFull() || value.getValue() <= 0) return false;
         money.add(value);
-        balance += value.getValue();
         return true;
     }
+    
+    public void setWithdrawStrategy(WithdrawStrategy strategy) {
+		this.strategy = strategy;
+	}
     
     /**
      * Withdraw the amount, using only items that have the
@@ -103,67 +116,24 @@ public class Purse {
 	 * or null if cannot withdraw requested amount.
      */
     public Valuable[] withdraw(Valuable amount) {
-    	/*
- 		* See lab sheet for outline of a solution, 
- 		* or devise your own solution.
- 		* The idea is to be greedy.
- 		* Try to withdraw the largest moneys possible.
- 		* Each time you choose a item as a candidate for
- 		* withdraw, add it to a temporary list and
- 		* decrease the amount (remainder) to withdraw.
- 		* 
- 		* If you reach a point where amountNeededToWithdraw == 0
- 		* then you found a solution!
- 		* Now, use the temporary list to remove moneys
- 		* from the money list, and return the temporary
- 		* list (as an array).
- 		*/
+
     		double amounts = amount.getValue();
         // withdraw cannot be less than 0
     		if(amounts < 0) return null;
-        Collections.sort(money,comp);
-        List<Valuable> templist = new ArrayList<Valuable>();
-        List<Valuable> temp = new ArrayList<Valuable>();
-        temp.addAll(money);
-        // temp of amount to check for withdraw
-        double remainAmount = amounts;
+    		if(strategy.toString().equals("GreedyWithdraw")) {
+    			Collections.sort(money,comp);
+    			Collections.reverse(money);
+    		}
+    		List<Valuable> tempFiltered = MoneyUtil.filterByCurrency(money, amount.getCurrency());
+        List<Valuable> temp = strategy.withdraw(amount, tempFiltered);
+        if(temp == null) return null;
         
-        // Loop for check if it can withdraw or not
-        for(int index = this.count()-1 ; index>=0 ; index--) {
-        		Valuable t = temp.get(index);
-        		if(t.getValue() <= remainAmount && t.getCurrency().equals(amount.getCurrency())) {
-        			if ( temp.size() == 0 && remainAmount >= 0 ) {	
-            			// failed. Don't change the contents of the purse.
-            			return null;
-            		}	
-            		templist.add(t);
-            		remainAmount -= t.getValue();
-            		temp.remove(index);
-        		}
+        for(Valuable value : temp) {
+        		money.remove(value);
         }
-        
-        // Did we get the full amount?
-     	// This code assumes you decrease amount each time you remove a money.
-        // Your code might use some other variable for the remaining amount to withdraw.
-        // remain amount = 0 so it can withdraw
-        if(remainAmount == 0) {
-        	// Success.
-    		// Remove the moneys you want to withdraw from purse,
-    		// and return them as an array.
-    		// Use list.toArray( array[] ) to copy a list into an array.
-    		// toArray returns a reference to the array itself.
-        		for(int index = this.count()-1 ; index>=0 ; index--) {
-        			Valuable m = money.get(index);
-        			if(m.getValue() <= amounts && m.getCurrency().equals(amount.getCurrency())) {
-        				balance -= m.getValue();
-            			amounts -= m.getValue();
-        				money.remove(index);
-        			}
-        		}
-        		Valuable [] array = new Valuable [templist.size()];
-            return templist.toArray(array);
-        }
-        else { return null; }
+        Valuable[] array = new Valuable[temp.size()]; // create the array
+        temp.toArray(array);
+        return array;  
     }
     
     /**  
