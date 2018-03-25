@@ -4,6 +4,13 @@ import java.util.List;
 
 import coinpurse.Valuable;
 
+/**
+ * The interface that decides which strategy to use to withdraw
+ * items in purse.
+ * 
+ * @author Patiphan Srisook
+ *
+ */
 public interface WithdrawStrategy {
 	
 	/**
